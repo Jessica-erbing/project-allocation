@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Hashtable;
 import java.util.List;
 
 @RestController
