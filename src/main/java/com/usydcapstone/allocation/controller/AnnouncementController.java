@@ -1,14 +1,12 @@
 package com.usydcapstone.allocation.controller;
 
 import com.usydcapstone.allocation.commonutils.R;
-import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Announcement;
 import com.usydcapstone.allocation.entity.vo.AnnouncementVo;
 import com.usydcapstone.allocation.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,7 +32,7 @@ public class AnnouncementController {
     public R getAnnouncement(@PathVariable String id) {
 
         AnnouncementVo announcementVo = announcementService.getAnnouncementVo(id);
-        return R.ok().data('announcement', announcementVo);
+        return R.ok().data("announcement", announcementVo);
 
     }
 
