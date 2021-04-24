@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements AdminService {
@@ -27,7 +28,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public boolean updateAdmin(Admin admin) {
         UpdateWrapper<Admin> adminUpdateWrapper = new UpdateWrapper<>();
-        adminUpdateWrapper.eq("id", null);
+        adminUpdateWrapper
+                .isNull("id")
+        ;
         boolean adminUpdate = saveOrUpdate(admin, adminUpdateWrapper);
         return adminUpdate;
     }
@@ -41,6 +44,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         return adminRemove;
     }
 
+    @Override
+    public Admin getAdminById(Integer id) {
+        Admin getAdminById = getById(id);
+        return getAdminById;
+    }
+
 
     @Override
     public List<Admin> getAllAdmin() {
@@ -49,10 +58,14 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
 
-//    @Override
-//    public Integer countAdmin() {
-//        Integer adminNumber = baseMapper.selectCount(null);
-//        return adminNumber;
-//    }
+    @Override
+    public List<Admin> countEmail(Admin admin) {
+        String newAdminEmail = admin.getEmail();
+        QueryWrapper<Admin> adminEmailWrapper = new QueryWrapper<>();
+        adminEmailWrapper.eq("email",newAdminEmail);
+
+        List<Admin> adminNumber = baseMapper.selectList(adminEmailWrapper);
+        return adminNumber;
+    }
 
 }
