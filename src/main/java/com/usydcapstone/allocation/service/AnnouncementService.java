@@ -13,4 +13,8 @@ public interface AnnouncementService extends IService<Announcement> {
     void addAnnouncement(Announcement announcement);
 
     AnnouncementVo getAnnouncementVo(String id);
+
+    void updateAnnouncement(Announcement announcement);
+
+    void deleteAnnouncement(String id);
 }

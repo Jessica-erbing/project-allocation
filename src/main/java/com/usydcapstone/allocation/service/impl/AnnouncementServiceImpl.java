@@ -2,6 +2,7 @@ package com.usydcapstone.allocation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Announcement;
 import com.usydcapstone.allocation.entity.vo.AnnouncementVo;
 import com.usydcapstone.allocation.mapper.AnnouncementMapper;
@@ -21,6 +22,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     @Override
     public List<Announcement> getAnnouncementList() {
+
         return baseMapper.selectList(null);
     }
 
@@ -33,17 +35,30 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     @Override
     public AnnouncementVo getAnnouncementVo(String id) {
-        QueryWrapper<Announcement> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        Announcement announcement = baseMapper.selectById(wrapper);
-
-        String authorId = announcement.getAuthorId();
-        // TODO
-        // Get admin info by authorID
+        Announcement announcement = baseMapper.selectById(id);
 
         AnnouncementVo announcementVo = new AnnouncementVo();
         BeanUtils.copyProperties(announcement, announcementVo);
 
+        String authorId = announcement.getAuthorId();
+        Admin adminInfo = adminService.getAdminById(authorId);
+        if (adminInfo != null) {
+            announcementVo.setAuthorId(authorId);
+            announcementVo.setAuthorName(adminInfo.getName());
+            announcementVo.setAuthorAvatar(adminInfo.getAvatar());
+        }
         return announcementVo;
+    }
+
+    @Override
+    public void updateAnnouncement(Announcement announcement) {
+        String time = String.valueOf(System.currentTimeMillis());
+        announcement.setTime(time);
+        this.updateById(announcement);
+    }
+
+    @Override
+    public void deleteAnnouncement(String id) {
+        baseMapper.deleteById(id);
     }
 }

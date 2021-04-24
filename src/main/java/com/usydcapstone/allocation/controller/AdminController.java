@@ -26,8 +26,8 @@ public class AdminController {
         return R.ok().data("admins", admins);
     }
 
-    @PostMapping("/getAdminById")
-    public R getAdminById(@RequestBody Integer id) {
+    @GetMapping("/getAdminById")
+    public R getAdminById(@RequestParam String id) {
         Admin admin =  adminService.getAdminById(id);
         return R.ok().data("admins", admin);
     }
@@ -39,25 +39,24 @@ public class AdminController {
 //        return R.ok().data("number", adminNum);
 //    }
 
-    @GetMapping("/saveAdmin")
+    @PostMapping("/saveAdmin")
     public R saveAdmin(@RequestBody Admin admin) {
-        adminService.saveAdmin(admin);
-        return R.ok();
-    }
-
-    @PostMapping("/updateAdmin")
-    public R updateAdmin(@RequestBody Admin admin) {
         if (adminService.countEmail(admin).size() > 0) {
             return R.error();
         } else {
-
-            adminService.updateAdmin(admin);
+            adminService.saveAdmin(admin);
             return R.ok();
         }
     }
 
+    @PostMapping("/updateAdmin")
+    public R updateAdmin(@RequestBody Admin admin) {
+        adminService.updateAdmin(admin);
+        return R.ok();
+    }
+
     @PostMapping("/removeAdmin")
-    public R removeAdmin(@RequestBody Integer id) {
+    public R removeAdmin(@RequestBody String id) {
         adminService.removeAdmin(id);
         return R.ok();
     }

@@ -28,13 +28,21 @@ public class AnnouncementController {
         return R.ok();
     }
 
-    @GetMapping("/getAnnouncement")
-    public R getAnnouncement(@PathVariable String id) {
-
-        AnnouncementVo announcementVo = announcementService.getAnnouncementVo(id);
-        return R.ok().data("announcement", announcementVo);
-
+    @PostMapping("/updateAnnouncement")
+    public R updateAnnouncement(@RequestBody Announcement announcement) {
+        announcementService.updateAnnouncement(announcement);
+        return R.ok();
     }
 
+    @GetMapping("/getAnnouncement")
+    public R getAnnouncement(@RequestParam String id) {
+        AnnouncementVo announcementVo = announcementService.getAnnouncementVo(id);
+        return R.ok().data("announcement", announcementVo);
+    }
 
+    @PostMapping("/deleteAnnouncement")
+    public R deleteAnnouncement(@RequestParam String id) {
+        announcementService.deleteAnnouncement(id);
+        return R.ok();
+    }
 }
