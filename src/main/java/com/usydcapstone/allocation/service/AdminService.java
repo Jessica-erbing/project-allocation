@@ -10,8 +10,10 @@ public interface AdminService extends IService<Admin> {
     boolean  saveAdmin(Admin admin);
     boolean updateAdmin(Admin admin);
     boolean removeAdmin(Integer id);
+    Admin getAdminById(Integer id);
+
     List<Admin> getAllAdmin();
-//    Integer countAdmin();
+    List<Admin> countEmail(Admin admin);
 
 }
 
