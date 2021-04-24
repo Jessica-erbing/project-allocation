@@ -19,9 +19,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public boolean saveAdmin(Admin admin) {
-
         boolean adminNew = save(admin);
-
         return adminNew;
     }
 
@@ -36,7 +34,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     @Override
-    public boolean removeAdmin(Integer id) {
+    public boolean removeAdmin(String id) {
 
 //        QueryWrapper<Admin> adminRemoveWrapper = new QueryWrapper<>();
 //        adminRemoveWrapper.eq("id", id);
@@ -45,7 +43,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     @Override
-    public Admin getAdminById(Integer id) {
+    public Admin getAdminById(String id) {
         Admin getAdminById = getById(id);
         return getAdminById;
     }
