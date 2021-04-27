@@ -1,6 +1,5 @@
 package com.usydcapstone.allocation.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Announcement;
@@ -20,10 +19,12 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Autowired
     AdminService adminService;
 
-    @Override
-    public List<Announcement> getAnnouncementList() {
+    @Autowired
+    AnnouncementMapper announcementMapper;
 
-        return baseMapper.selectList(null);
+    @Override
+    public List<AnnouncementVo> getAnnouncementList() {
+        return announcementMapper.getAnnouncementVoList();
     }
 
     @Override
@@ -44,8 +45,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         Admin adminInfo = adminService.getAdminById(authorId);
         if (adminInfo != null) {
             announcementVo.setAuthorId(authorId);
-            announcementVo.setAuthorName(adminInfo.getName());
-            announcementVo.setAuthorAvatar(adminInfo.getAvatar());
+            announcementVo.setAuthor(adminInfo);
         }
         return announcementVo;
     }
