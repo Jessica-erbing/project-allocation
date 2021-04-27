@@ -18,7 +18,7 @@ public class AnnouncementController {
 
     @GetMapping("/getAnnouncementList")
     public R getAnnouncementList() {
-        List<Announcement> list = announcementService.getAnnouncementList();
+        List<AnnouncementVo> list = announcementService.getAnnouncementList();
         return R.ok().data("list", list);
     }
 

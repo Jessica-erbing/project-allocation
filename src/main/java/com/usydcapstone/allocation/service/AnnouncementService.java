@@ -2,13 +2,12 @@ package com.usydcapstone.allocation.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.usydcapstone.allocation.entity.Announcement;
-import com.usydcapstone.allocation.entity.User;
 import com.usydcapstone.allocation.entity.vo.AnnouncementVo;
 
 import java.util.List;
 
 public interface AnnouncementService extends IService<Announcement> {
-    List<Announcement> getAnnouncementList();
+    List<AnnouncementVo> getAnnouncementList();
 
     void addAnnouncement(Announcement announcement);
 
