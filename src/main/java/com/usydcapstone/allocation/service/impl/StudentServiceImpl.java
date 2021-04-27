@@ -15,9 +15,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public List<Student> getAllStudent(){
         ArrayList<Student> studentList = (ArrayList<Student>) baseMapper.selectList(null);
-
-
-
         return studentList;
+    }
+
+    @Override
+    public boolean removeStudent(Integer id) {
+        boolean studentRemove = removeById(id);
+        return studentRemove;
     }
 }

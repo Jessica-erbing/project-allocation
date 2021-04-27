@@ -5,10 +5,7 @@ import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Grps;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,9 +17,15 @@ public class GrpsController {
     private GroupService groupService;
 
     @GetMapping("/getAllGroup")
-    public R getAllgroup() {
+    public R getAllGroup() {
         List<Grps> group = groupService.getAllGroup();
         return R.ok().data("Group",group);
+    }
+
+    @PostMapping("/removeGroup")
+    public R removeAdmin(@RequestBody Integer id) {
+        groupService.removeGroup(id);
+        return R.ok();
     }
 
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StudentService extends IService<Student> {
     List<Student> getAllStudent();
+
+    boolean removeStudent(Integer id);
 }

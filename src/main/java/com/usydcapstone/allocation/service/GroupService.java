@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GroupService extends IService<Grps> {
     List<Grps> getAllGroup();
+    boolean removeGroup(Integer id);
+    List<Grps> getProjectGroup();
 }
