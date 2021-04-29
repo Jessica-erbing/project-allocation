@@ -2,6 +2,8 @@ package com.usydcapstone.allocation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Grps;
@@ -59,4 +61,24 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         List<Project> projectList = baseMapper.selectList(null);
         return projectList;
     }
+
+    @Override
+    public IPage<Project> getByPage(IPage<Project> page) {
+        IPage<Project> getByPage = page(page);
+        return getByPage;
+    }
+
+    @Override
+    public List<Project> keywordSearch(String keyword) {
+        QueryWrapper<Project> projectSearchWrapper = new QueryWrapper<>();
+        projectSearchWrapper
+                .like("title",keyword)
+        .or().like("id",keyword)
+        .or().like("unit",keyword)
+        .or().like("type",keyword);
+        List<Project> searchResult = baseMapper.selectList(projectSearchWrapper);
+        return searchResult;
+    }
+
+
 }
