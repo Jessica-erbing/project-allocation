@@ -1,5 +1,7 @@
 package com.usydcapstone.allocation.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Project;
@@ -31,6 +33,13 @@ public class ProjectController {
         return R.ok().data("project", project);
     }
 
+    @GetMapping("/keywordSearch")
+    public R keywordSearch(@RequestParam String keyword) {
+        List<Project> result = ProjectService.keywordSearch(keyword);
+        return R.ok().data("project:", result);
+    }
+
+
     @PostMapping("/saveProject")
     public R saveProject(@RequestBody Project project) {
         if (ProjectService.countTitle(project).size() > 0) {
@@ -53,8 +62,11 @@ public class ProjectController {
         return R.ok();
     }
 
-
-
-
+    @GetMapping("/getByPage")
+    public R getByPage(){
+        IPage<Project> page = new Page<Project>(1,6) ;
+        IPage<Project> iPage =  ProjectService.getByPage(page);
+        return R.ok().data("project", iPage);
+    }
 
 }
