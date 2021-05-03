@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.usydcapstone.allocation.mapper.GroupMapper">
+    <resultMap id="groupListMap" type="com.usydcapstone.allocation.entity.vo.GroupVo">
+        <id property="id" column="id"></id>
+        <result property="groupNumber" column="group_number"></result>
+        <collection property="studentList" ofType="com.usydcapstone.allocation.entity.Student" columnPrefix="student_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
 
+    <select id="getGroupList" parameterType="object" resultMap="groupListMap">
+        SELECT
+            grps.id,
+            group_number,
+            student.id AS student_id,
+            student.name AS student_name
+        FROM grps LEFT JOIN student ON grps.id=student.group_id;
+    </select>
 </mapper>

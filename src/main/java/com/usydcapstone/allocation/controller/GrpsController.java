@@ -3,6 +3,7 @@ package com.usydcapstone.allocation.controller;
 
 import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Grps;
+import com.usydcapstone.allocation.entity.vo.GroupVo;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,4 +26,9 @@ public class GrpsController {
         return R.ok().data("Group",group);
     }
 
+    @GetMapping("/getGroupList")
+    public R getGroupList() {
+        List<GroupVo> groupList = groupService.getGroupList();
+        return R.ok().data("list",groupList);
+    }
 }
