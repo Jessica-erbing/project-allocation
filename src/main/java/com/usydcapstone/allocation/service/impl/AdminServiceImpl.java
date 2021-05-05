@@ -25,11 +25,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public boolean updateAdmin(Admin admin) {
-        UpdateWrapper<Admin> adminUpdateWrapper = new UpdateWrapper<>();
-        adminUpdateWrapper
-                .isNull("id")
-        ;
-        boolean adminUpdate = saveOrUpdate(admin, adminUpdateWrapper);
+//        UpdateWrapper<Admin> adminUpdateWrapper = new UpdateWrapper<>();
+//        adminUpdateWrapper
+//                .eq("id",null)
+//        ;
+        boolean adminUpdate = updateById(admin);
         return adminUpdate;
     }
 
@@ -65,5 +65,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         List<Admin> adminNumber = baseMapper.selectList(adminEmailWrapper);
         return adminNumber;
     }
+
 
 }

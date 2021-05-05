@@ -18,6 +18,7 @@ import java.util.List;
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
 
+
     @Override
     public boolean saveProject(Project project) {
         boolean projectNew = save(project);
@@ -26,11 +27,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 
     @Override
     public boolean updateProject(Project project) {
-        UpdateWrapper<Project> projectUpdateWrapper = new UpdateWrapper<>();
-        projectUpdateWrapper
-                .isNotNull("id")
-        ;
-        boolean projectUpdate = saveOrUpdate(project, projectUpdateWrapper);
+//        UpdateWrapper<Project> projectUpdateWrapper = new UpdateWrapper<>();
+//        projectUpdateWrapper
+//                .ne("id",null)
+//        ;
+        boolean projectUpdate = updateById(project);
         return projectUpdate;
     }
 

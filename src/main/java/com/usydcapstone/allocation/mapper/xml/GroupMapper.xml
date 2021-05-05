@@ -12,10 +12,11 @@
 
     <select id="getGroupList" parameterType="object" resultMap="groupListMap">
         SELECT
-            grps.id,
-            group_number,
-            student.id AS student_id,
-            student.name AS student_name
+        grps.id,
+        group_number,
+        student.id AS student_id,
+        student.name AS student_name
         FROM grps LEFT JOIN student ON grps.id=student.group_id;
     </select>
 </mapper>
+
