@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Grps;
-import com.usydcapstone.allocation.entity.Student;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,5 @@ public class GrpsController {
         IPage<Grps> iPage =  groupService.getGroupByPage(page);
         return R.ok().data("Group", iPage);
     }
-
-
 
 }

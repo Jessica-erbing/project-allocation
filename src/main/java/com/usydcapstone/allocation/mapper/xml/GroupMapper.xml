@@ -19,3 +19,4 @@
         FROM grps LEFT JOIN student ON grps.id=student.group_id;
     </select>
 </mapper>
+
