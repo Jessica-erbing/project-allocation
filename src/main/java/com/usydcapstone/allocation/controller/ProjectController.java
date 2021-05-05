@@ -36,7 +36,7 @@ public class ProjectController {
     @GetMapping("/keywordSearch")
     public R keywordSearch(@RequestParam String keyword) {
         List<Project> result = ProjectService.keywordSearch(keyword);
-        return R.ok().data("project:", result);
+        return R.ok().data("project", result);
     }
 
 
@@ -57,14 +57,14 @@ public class ProjectController {
     }
 
     @PostMapping("/removeProject")
-    public R removeProject(@RequestBody String id) {
+    public R removeProject(@RequestParam String id) {
         ProjectService.removeProject(id);
         return R.ok();
     }
 
     @GetMapping("/getByPage")
-    public R getByPage(){
-        IPage<Project> page = new Page<Project>(1,6) ;
+    public R getByPage(@RequestParam Long cpage){
+        IPage<Project> page = new Page<Project>(cpage,6) ;
         IPage<Project> iPage =  ProjectService.getByPage(page);
         return R.ok().data("project", iPage);
     }
