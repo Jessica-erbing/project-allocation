@@ -19,4 +19,5 @@ public class Project {
     private String skills;
     private String details;
     private String annotation;
+    private int fullstatus;
 }

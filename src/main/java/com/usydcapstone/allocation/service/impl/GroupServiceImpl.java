@@ -6,6 +6,7 @@ import com.usydcapstone.allocation.entity.Announcement;
 import com.usydcapstone.allocation.entity.Grps;
 import com.usydcapstone.allocation.entity.vo.AnnouncementVo;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
+import com.usydcapstone.allocation.entity.vo.ResultVo;
 import com.usydcapstone.allocation.mapper.GroupMapper;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.BeanUtils;
@@ -29,5 +30,15 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
     @Override
     public List<GroupVo> getGroupList() {
         return groupMapper.getGroupList();
+    }
+
+    @Override
+    public List<GroupVo> getProjectGroupList() {
+        return groupMapper.getProjectGroupList();
+    }
+
+    @Override
+    public List<ResultVo> getResultList(){
+        return  groupMapper.getResultList();
     }
 }
