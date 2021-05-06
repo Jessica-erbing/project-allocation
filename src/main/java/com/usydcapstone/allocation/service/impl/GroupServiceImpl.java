@@ -81,4 +81,10 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
         return searchResult;
     }
 
+    @Override
+    public IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage) {
+        IPage<GroupVo> groupListPage = groupMapper.getPageGroupList(groupPage);
+        return groupListPage;
+    }
+
 }
