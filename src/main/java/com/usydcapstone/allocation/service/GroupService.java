@@ -17,4 +17,6 @@ public interface GroupService extends IService<Grps> {
     boolean removeGroupBatch(List<String> idList);
     IPage<Grps> getGroupByPage(IPage<Grps> page);
     List<Grps> keywordGroupSearch(String keyword);
+
+    IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage);
 }

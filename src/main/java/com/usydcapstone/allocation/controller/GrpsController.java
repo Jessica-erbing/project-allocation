@@ -34,7 +34,7 @@ public class GrpsController {
 
     @PostMapping("/addGroup")
     public R addGroup(@RequestBody Grps group) {
-        groupService.saveGroup(group);
+        boolean result = groupService.saveGroup(group);
         return R.ok();
     }
 
@@ -73,6 +73,18 @@ public class GrpsController {
         IPage<Grps> page = new Page<Grps>(cpage,8) ;
         IPage<Grps> iPage =  groupService.getGroupByPage(page);
         return R.ok().data("Group", iPage);
+    }
+
+
+    @GetMapping("/getPageGroupList")
+    public R getPageGroupList(@RequestParam String keyword, Long page, Long limit) {
+        IPage<GroupVo> groupVoPage = new Page<GroupVo>(page, limit);
+        IPage<GroupVo> ipage = groupService.getPageGroupList(groupVoPage);
+        int total = (int) ipage.getTotal();
+        List<GroupVo> records = ipage.getRecords();
+        return R.ok().data("total", total).data("list", records);
+
+
     }
 
 }

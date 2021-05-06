@@ -7,11 +7,11 @@ import lombok.Data;
 
 @Data
 public class Grps {
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
     private String groupNumber;
+    private String preferField;
     private int pre1;
     private int pre2;
     private int pre3;
-
 }
