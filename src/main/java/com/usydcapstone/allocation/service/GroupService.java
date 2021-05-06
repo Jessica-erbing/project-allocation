@@ -10,7 +10,7 @@ import java.util.List;
 public interface GroupService extends IService<Grps> {
     List<Grps> getAllGroup();
     List<GroupVo> getGroupList();
-    boolean saveGroup(Grps group);
+    Grps saveGroup(Grps group);
     boolean updateGroup(Grps group);
     boolean removeGroup(String id);
     Grps getGroupById(String id);
@@ -18,5 +18,5 @@ public interface GroupService extends IService<Grps> {
     IPage<Grps> getGroupByPage(IPage<Grps> page);
     List<Grps> keywordGroupSearch(String keyword);
 
-    IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage);
+    IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage, String keyword);
 }

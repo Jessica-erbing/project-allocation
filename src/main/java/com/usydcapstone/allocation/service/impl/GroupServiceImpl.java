@@ -3,10 +3,7 @@ package com.usydcapstone.allocation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.usydcapstone.allocation.entity.Admin;
-import com.usydcapstone.allocation.entity.Announcement;
 import com.usydcapstone.allocation.entity.Grps;
-import com.usydcapstone.allocation.entity.Student;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
 import com.usydcapstone.allocation.mapper.GroupMapper;
 import com.usydcapstone.allocation.service.GroupService;
@@ -33,9 +30,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
     }
 
     @Override
-    public boolean saveGroup(Grps group) {
-        boolean groupNew = save(group);
-        return groupNew;
+    public Grps saveGroup(Grps group) {
+        boolean saveSucceed = save(group);
+        return group;
     }
 
     @Override
@@ -82,8 +79,10 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
     }
 
     @Override
-    public IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage) {
-        IPage<GroupVo> groupListPage = groupMapper.getPageGroupList(groupPage);
+    public IPage<GroupVo> getPageGroupList(IPage<GroupVo> groupPage, String keyword) {
+        QueryWrapper<GroupVo> wrapper = new QueryWrapper<>();
+        keyword = keyword.equals("") ? keyword : "%" + keyword + "%";
+        IPage<GroupVo> groupListPage = groupPage.setRecords(groupMapper.getPageGroupList(groupPage, keyword));
         return groupListPage;
     }
 
