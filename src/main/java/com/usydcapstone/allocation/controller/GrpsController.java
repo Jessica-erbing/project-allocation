@@ -3,13 +3,17 @@ package com.usydcapstone.allocation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.usydcapstone.allocation.commonutils.JwtUtils;
 import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Grps;
+import com.usydcapstone.allocation.entity.Student;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
 import com.usydcapstone.allocation.service.GroupService;
+import com.usydcapstone.allocation.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,6 +22,9 @@ import java.util.List;
 public class GrpsController {
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private StudentService studentService;
 
 
     @GetMapping("/getAllGroup")
@@ -33,9 +40,25 @@ public class GrpsController {
     }
 
     @PostMapping("/addGroup")
-    public R addGroup(@RequestBody Grps group) {
+    public R addGroup(@RequestBody Grps group, HttpServletRequest request) {
         Grps savedGroup = groupService.saveGroup(group);
+
+        String id = JwtUtils.getStudentIdByJwtToken(request);
+        Student student = new Student();
+        student.setId(id);
+        student.setGroupId(savedGroup.getId());
+        studentService.updateStudent(student);
         return R.ok().data("group", savedGroup);
+    }
+
+    @PostMapping("/joinGroup")
+    public R joinGroup(@RequestParam Long groupId, HttpServletRequest request) {
+        String id = JwtUtils.getStudentIdByJwtToken(request);
+        Student student = new Student();
+        student.setId(id);
+        student.setGroupId(groupId);
+        studentService.updateStudent(student);
+        return R.ok();
     }
 
     @PostMapping("/updateGroup")
