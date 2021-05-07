@@ -11,4 +11,7 @@ public class GroupVo {
     private String groupNumber;
     private String preferField;
     private List<Student> studentList;
+    private int pre1;
+    private int pre2;
+    private int pre3;
 }
