@@ -15,6 +15,9 @@
         <id property="id" column="id"></id>
         <result property="groupNumber" column="group_number"></result>
         <result property="preferField" column="prefer_field"></result>
+        <result property="pre1" column="pre1"></result>
+        <result property="pre2" column="pre2"></result>
+        <result property="pre3" column="pre3"></result>
         <collection property="studentList" column="id" select="selectStudentList">
         </collection>
     </resultMap>
@@ -32,7 +35,10 @@
         SELECT
             id,
             group_number,
-            prefer_field
+            prefer_field,
+            pre1,
+            pre2,
+            pre3
         FROM grps
         <if test="keyword != null and keyword != ''">
             WHERE grps.id LIKE #{keyword}
