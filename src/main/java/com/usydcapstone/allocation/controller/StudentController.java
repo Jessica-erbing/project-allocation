@@ -72,5 +72,12 @@ public class StudentController {
         return R.ok().data("Student", iPage);
     }
 
+    @PostMapping("/resetPassword")
+    public R resetPassword(@RequestParam String id) {
+        Student student = studentService.resetPassword(id);
+        studentService.updateStudent(student);
+        return R.ok().data("student", student);
+    }
+
 
 }

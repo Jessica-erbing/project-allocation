@@ -3,7 +3,6 @@ package com.usydcapstone.allocation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.usydcapstone.allocation.entity.Project;
 import com.usydcapstone.allocation.entity.Student;
 import com.usydcapstone.allocation.mapper.StudentMapper;
 import com.usydcapstone.allocation.service.StudentService;
@@ -66,5 +65,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 .or().like("name",keyword);
         List<Student> searchResult = baseMapper.selectList(StudentSearchWrapper);
         return searchResult;
+    }
+
+    @Override
+    public Student resetPassword(String id) {
+        Student student = baseMapper.selectById(id);
+        student.setPassword("123456");
+
+        return student;
     }
 }
