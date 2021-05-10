@@ -30,7 +30,7 @@
         <collection property="studentList" column="id" select="selectStudentList">
         </collection>
     </resultMap>
-    
+
     <select id="getPageGroupList" parameterType="object" resultMap="groupListMapPage">
         SELECT
             id,
@@ -41,7 +41,7 @@
             pre3
         FROM grps
         <if test="keyword != null and keyword != ''">
-            WHERE grps.id LIKE #{keyword} OR grps.
+            WHERE grps.id LIKE #{keyword}
         </if>
     </select>
 
