@@ -11,6 +11,15 @@
         </collection>
     </resultMap>
 
+    <select id="getGroupList" parameterType="object" resultMap="groupListMap">
+        SELECT
+            grps.id,
+            group_number,
+            student.id AS student_id,
+            student.name AS student_name
+        FROM grps LEFT JOIN student ON grps.id=student.group_id;
+    </select>
+
     <resultMap id="groupListMapPage" type="com.usydcapstone.allocation.entity.vo.GroupVo">
         <id property="id" column="id"></id>
         <result property="groupNumber" column="group_number"></result>
@@ -21,16 +30,7 @@
         <collection property="studentList" column="id" select="selectStudentList">
         </collection>
     </resultMap>
-
-    <select id="getGroupList" parameterType="object" resultMap="groupListMap">
-        SELECT
-            grps.id,
-            group_number,
-            student.id AS student_id,
-            student.name AS student_name
-        FROM grps LEFT JOIN student ON grps.id=student.group_id;
-    </select>
-
+    
     <select id="getPageGroupList" parameterType="object" resultMap="groupListMapPage">
         SELECT
             id,
@@ -41,7 +41,7 @@
             pre3
         FROM grps
         <if test="keyword != null and keyword != ''">
-            WHERE grps.id LIKE #{keyword}
+            WHERE grps.id LIKE #{keyword} OR grps.
         </if>
     </select>
 
