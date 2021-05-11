@@ -78,76 +78,14 @@ public class ProjectController {
     }
 
 
+
+
     @GetMapping("/allocated")
     public R allocated(
-            @RequestParam int pre1,
-            @RequestParam int pre2,
-            @RequestParam int pre3,
-            @RequestParam String groupId
-            ){
-        int [] preList = new int[]{pre1,pre2,pre3};
-        for (int i = 0; i < 3; i++) {
-            int projectId = preList[i];
-            int num;//current group number
-            Map params = new HashMap<>();
-            params.put("id",projectId);
-            List<GroupNumberVo> groupNumberVos = GroupService.getGroupNumber(params);
-            int row = groupNumberVos.size();
-            if (row == 0){
-                num = 0;
-            }else{
-                num = Integer.parseInt(groupNumberVos.get(0).getNumber());
-            };
-            Project project = ProjectService.getProject(projectId);
-            int nums = Integer.parseInt(project.getGroupnum());// get group limit
-
-            if(num < nums - 1){
-                //add group
-                UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupId);
-                Grps grps = new Grps();
-                grps.setProjectId(projectId);
-                GroupService.update(grps,updateGroupWrapper);
-                break;
-            }else if (num == nums - 1){
-                UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupId);
-                Grps grps = new Grps();
-                grps.setProjectId(projectId);
-                GroupService.update(grps,updateGroupWrapper);
-
-                UpdateWrapper<Project> updateProjectWrapper = new UpdateWrapper<>();
-                updateProjectWrapper.eq("id",projectId);
-                Project projects = new Project();
-                project.setFullstatus(1);
-                ProjectService.update(projects,updateProjectWrapper);
-                break;
-            }else {
-                UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupId);
-                Grps grps = new Grps();
-                grps.setProjectId(0);
-                GroupService.update(grps,updateGroupWrapper);
-            }
-
-        }
-        UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-        updateGroupWrapper.eq("id",groupId);
-        Grps grps = new Grps();
-        grps.setPre1(Integer.toString(pre1));
-        grps.setPre2(Integer.toString(pre2));
-        grps.setPre3(Integer.toString(pre3));
-        GroupService.update(grps,updateGroupWrapper);
-        return R.ok();
-
-    }
-
-    @GetMapping("/allocate")
-    public R allocate(
         @RequestParam int pre1,
         @RequestParam int pre2,
         @RequestParam int pre3,
-        @RequestParam int groupid
+        @RequestParam String groupId
     ){
         int [] preList = new int[]{pre1,pre2,pre3};
         for (int i = 0; i < 3; i++) {
@@ -167,7 +105,7 @@ public class ProjectController {
             if(num < nums - 1){
                 //add group
                 UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupid);
+                updateGroupWrapper.eq("id",groupId);
                 Grps grps = new Grps();
                 grps.setPre1(Integer.toString(pre1));
                 grps.setPre2(Integer.toString(pre2));
@@ -177,7 +115,7 @@ public class ProjectController {
                 break;
             }else if (num == nums - 1){
                 UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupid);
+                updateGroupWrapper.eq("id",groupId);
                 Grps grps = new Grps();
                 grps.setPre1(Integer.toString(pre1));
                 grps.setPre2(Integer.toString(pre2));
@@ -193,7 +131,7 @@ public class ProjectController {
                 break;
             }else {
                 UpdateWrapper<Grps> updateGroupWrapper = new UpdateWrapper<>();
-                updateGroupWrapper.eq("id",groupid);
+                updateGroupWrapper.eq("id",groupId);
                 Grps grps = new Grps();
                 grps.setPre1(Integer.toString(pre1));
                 grps.setPre2(Integer.toString(pre2));
