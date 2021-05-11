@@ -17,7 +17,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private AdminService adminService;;
+    private AdminService adminService;
 
     @GetMapping("/getAdminList")
     public R getAdminList() {

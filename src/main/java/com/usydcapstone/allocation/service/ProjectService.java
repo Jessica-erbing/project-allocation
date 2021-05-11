@@ -14,6 +14,7 @@ public interface ProjectService extends IService<Project> {
     boolean updateProject(Project project);
     boolean removeProject(String id);
     Project getProjectById(String id);
+    Project getProject(int id);
     List<Project> countTitle(Project project);
     List<Project> getAllProject();
     IPage<Project> getByPage(IPage<Project> page);

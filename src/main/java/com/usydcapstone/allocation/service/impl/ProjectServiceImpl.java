@@ -46,6 +46,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         return getProjectById;
     }
 
+    @Override
+    public Project getProject(int id) {
+        Project getProject = getById(id);
+        return getProject;
+    }
+
 
     @Override
     public List<Project> countTitle(Project project) {
