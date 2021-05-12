@@ -81,4 +81,12 @@ public class JwtUtils {
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
     }
+
+    public static String getStudentIdByJwtToken(HttpServletRequest request) {
+        String jwtToken = request.getHeader("token");
+        if(StringUtils.isEmpty(jwtToken)) return "";
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("id");
+    }
 }

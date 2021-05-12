@@ -1,16 +1,19 @@
 package com.usydcapstone.allocation.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.usydcapstone.allocation.commonutils.JwtUtils;
 import com.usydcapstone.allocation.commonutils.R;
 import com.usydcapstone.allocation.entity.Grps;
+import com.usydcapstone.allocation.entity.Student;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
 import com.usydcapstone.allocation.service.GroupService;
+import com.usydcapstone.allocation.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,6 +22,10 @@ import java.util.List;
 public class GrpsController {
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private StudentService studentService;
+
 
     @GetMapping("/getAllGroup")
     public R getAllgroup() {
@@ -32,5 +39,73 @@ public class GrpsController {
         return R.ok().data("list",groupList);
     }
 
+    @PostMapping("/addGroup")
+    public R addGroup(@RequestBody Grps group, HttpServletRequest request) {
+        Grps savedGroup = groupService.saveGroup(group);
+
+        String id = JwtUtils.getStudentIdByJwtToken(request);
+        Student student = new Student();
+        student.setId(id);
+        student.setGroupId(savedGroup.getId());
+        studentService.updateStudent(student);
+        return R.ok().data("group", savedGroup);
+    }
+
+    @PostMapping("/joinGroup")
+    public R joinGroup(@RequestParam Long groupId, HttpServletRequest request) {
+        String id = JwtUtils.getStudentIdByJwtToken(request);
+        Student student = new Student();
+        student.setId(id);
+        student.setGroupId(groupId);
+        studentService.updateStudent(student);
+        return R.ok();
+    }
+
+    @PostMapping("/updateGroup")
+    public R updateGroup(@RequestBody Grps group) {
+        groupService.updateGroup(group);
+        return R.ok();
+    }
+
+    @PostMapping("/removeGroup")
+    public R removeGroup(@RequestParam String id) {
+        groupService.removeGroup(id);
+        return R.ok();
+    }
+
+    @GetMapping("/getGroupById")
+    public R getGroupById(@RequestParam String id) {
+        Grps group =  groupService.getGroupById(id);
+        return R.ok().data("group", group);
+    }
+
+    @PostMapping("/removeGroupBatch")
+    public R removeGroupBatch(@RequestParam List<String> idList) {
+        groupService.removeGroupBatch(idList);
+        return R.ok();
+    }
+
+    @GetMapping("/keywordGroupSearch")
+    public R keywordGroupSearch(@RequestParam String keyword) {
+        List<Grps> result = groupService.keywordGroupSearch(keyword);
+        return R.ok().data("Group", result);
+    }
+
+    @GetMapping("/getGroupByPage")
+    public R getGroupByPage(@RequestParam Long cpage){
+        IPage<Grps> page = new Page<Grps>(cpage,8) ;
+        IPage<Grps> iPage =  groupService.getGroupByPage(page);
+        return R.ok().data("Group", iPage);
+    }
+
+
+    @GetMapping("/getPageGroupList")
+    public R getPageGroupList(@RequestParam String keyword, Long page, Long limit) {
+        IPage<GroupVo> groupVoPage = new Page<GroupVo>(page, limit);
+        IPage<GroupVo> ipage = groupService.getPageGroupList(groupVoPage, keyword);
+        int total = (int) ipage.getTotal();
+        List<GroupVo> records = ipage.getRecords();
+        return R.ok().data("total", total).data("list", records);
+    }
 
 }
