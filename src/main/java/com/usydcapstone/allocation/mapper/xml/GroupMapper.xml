@@ -53,6 +53,7 @@
         WHERE student.group_id = #{id}
     </select>
 
+
     <resultMap id="projectGroupListMap" type="com.usydcapstone.allocation.entity.vo.GroupVo">
         <id property="id" column="id"></id>
         <result property="groupNumber" column="group_number"></result>
@@ -147,5 +148,6 @@
         FROM student INNER JOIN grps ON grps.id=student.group_id INNER JOIN project ON grps.project_id = project.id
         ORDER BY project_id;
     </select>
+
 </mapper>
 
