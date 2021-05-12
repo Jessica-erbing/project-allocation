@@ -11,10 +11,9 @@ public interface AdminService extends IService<Admin> {
     boolean updateAdmin(Admin admin);
     boolean removeAdmin(String id);
     Admin getAdminById(String id);
+
     List<Admin> getAllAdmin();
     List<Admin> countEmail(Admin admin);
-
-
 
 }
 

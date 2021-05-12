@@ -60,7 +60,4 @@ public class AdminController {
         adminService.removeAdmin(id);
         return R.ok();
     }
-
-
-
 }
