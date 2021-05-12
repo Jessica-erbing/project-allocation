@@ -44,7 +44,7 @@ public class ProjectController {
     @GetMapping("/keywordSearch")
     public R keywordSearch(@RequestParam String keyword) {
         List<Project> result = ProjectService.keywordSearch(keyword);
-        return R.ok().data("project", result);
+        return R.ok().data("project:", result);
     }
 
 
