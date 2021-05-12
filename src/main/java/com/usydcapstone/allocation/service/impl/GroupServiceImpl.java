@@ -4,13 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.usydcapstone.allocation.entity.Grps;
+import com.usydcapstone.allocation.entity.vo.GroupNumberVo;
 import com.usydcapstone.allocation.entity.vo.GroupVo;
+import com.usydcapstone.allocation.entity.vo.ResultVo;
+import com.usydcapstone.allocation.entity.vo.UnallocatedGroupVo;
 import com.usydcapstone.allocation.mapper.GroupMapper;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements GroupService {
@@ -84,6 +88,31 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
         keyword = keyword.equals("") ? keyword : "%" + keyword + "%";
         IPage<GroupVo> groupListPage = groupPage.setRecords(groupMapper.getPageGroupList(groupPage, keyword));
         return groupListPage;
+    }
+
+
+    @Override
+    public List<GroupVo> getProjectGroupList(Map params) {
+        return groupMapper.getProjectGroupList(params);
+    }
+
+    @Override
+    public List<ResultVo> getResultList(){
+        return
+                groupMapper.getResultList();
+    }
+
+    @Override
+    public List<GroupVo> getUnassignedGroup(){
+        return groupMapper.getUnassignedGroup();
+    }
+
+    @Override
+    public List<GroupNumberVo> getGroupNumber(Map params){return groupMapper.getGroupNumber(params);}
+
+    @Override
+    public  List<UnallocatedGroupVo> getUnallocatedGroup(){
+        return groupMapper.getUnallocatedGroup();
     }
 
 }

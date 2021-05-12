@@ -1,11 +1,8 @@
 package com.usydcapstone.allocation.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.usydcapstone.allocation.entity.Admin;
 import com.usydcapstone.allocation.entity.Project;
-
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ public interface ProjectService extends IService<Project> {
     List<Project> getAllProject();
     IPage<Project> getByPage(IPage<Project> page);
     List<Project> keywordSearch(String keyword);
-}
 
+    Project getProject(int id);
+}
 

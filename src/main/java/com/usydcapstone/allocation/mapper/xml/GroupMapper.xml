@@ -52,5 +52,102 @@
         FROM student
         WHERE student.group_id = #{id}
     </select>
+
+
+    <resultMap id="projectGroupListMap" type="com.usydcapstone.allocation.entity.vo.GroupVo">
+        <id property="id" column="id"></id>
+        <result property="groupNumber" column="group_number"></result>
+        <collection property="studentList" ofType="com.usydcapstone.allocation.entity.Student" columnPrefix="student_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="resultListMap" type="com.usydcapstone.allocation.entity.vo.ResultVo">
+        <id property="id" column="id"></id>
+        <result property="groupNumber" column="group_number"></result>
+        <result property="projectTitle" column="project_title"></result>
+        <result property="projectClient" column="project_client"></result>
+        <collection property="studentList" ofType="com.usydcapstone.allocation.entity.Student" columnPrefix="student_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="unassignedGroupMap" type="com.usydcapstone.allocation.entity.vo.GroupVo">
+        <id property="id" column="id"></id>
+        <result property="groupNumber" column="group_number"></result>
+        <collection property="studentList" ofType="com.usydcapstone.allocation.entity.Student" columnPrefix="student_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="unallocatedGroupMap" type="com.usydcapstone.allocation.entity.vo.UnallocatedGroupVo">
+        <id property="id" column="id"></id>
+        <result property="member" column="member"></result>
+
+    </resultMap>
+
+    <resultMap id="groupNumberMap" type="com.usydcapstone.allocation.entity.vo.GroupNumberVo">
+        <id property="id" column="id"></id>
+        <result property="number" column="number"></result>
+
+    </resultMap>
+
+    <select id="getGroupNumber" parameterType="map" resultMap="groupNumberMap">
+        SELECT
+            project.id,
+            count(*) AS number
+        FROM project INNER JOIN grps ON grps.project_id=project.id
+        WHERE project.id = #{id}
+        GROUP BY id
+    </select>
+
+
+    <select id="getUnallocatedGroup" parameterType="object" resultMap="unallocatedGroupMap">
+        SELECT
+            grps.id,
+            count(*) AS member
+        FROM grps LEFT JOIN student ON grps.id=student.group_id
+        WHERE project_id = 0 or project_id IS NULL
+        GROUP BY id;
+    </select>
+
+
+    <select id="getUnassignedGroup" parameterType="object" resultMap="unassignedGroupMap">
+        SELECT
+            grps.id,
+            group_number,
+            student.id AS student_id,
+            student.name AS student_name
+        FROM grps LEFT JOIN student ON grps.id=student.group_id
+        WHERE project_id = 0 or project_id IS NULL;
+    </select>
+
+
+
+    <select id="getProjectGroupList" parameterType="map" resultMap="projectGroupListMap">
+        SELECT
+            grps.id,
+            group_number,
+            student.id AS student_id,
+            student.name AS student_name
+        FROM grps LEFT JOIN student ON grps.id=student.group_id
+        WHERE pre1 = #{id} OR pre2 = #{id} OR pre3 = #{id}  OR project_id = #{id} ;
+    </select>
+
+    <select id="getResultList" parameterType="object" resultMap="resultListMap">
+        SELECT
+            grps.id,
+            group_number,
+            project.title AS project_title,
+            student.id AS student_id,
+            student.name AS student_name,
+            project.client AS project_client
+        FROM student INNER JOIN grps ON grps.id=student.group_id INNER JOIN project ON grps.project_id = project.id
+        ORDER BY project_id;
+    </select>
+
 </mapper>
 

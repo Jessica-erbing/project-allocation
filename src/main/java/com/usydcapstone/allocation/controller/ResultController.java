@@ -1,7 +1,9 @@
 package com.usydcapstone.allocation.controller;
 
+
 import com.usydcapstone.allocation.commonutils.R;
-import com.usydcapstone.allocation.entity.vo.UnallocatedGroupVo;
+import com.usydcapstone.allocation.entity.vo.GroupVo;
+import com.usydcapstone.allocation.entity.vo.ResultVo;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/result")
 @CrossOrigin
-@RequestMapping("/home")
-public class HomeController {
+public class ResultController {
     @Autowired
     private GroupService groupService;
 
-    @GetMapping("/getUnallocatedGroup")
-    public R getUnallocatedGroup(){
-       List<UnallocatedGroupVo> unallocatedGroupVos = groupService.getUnallocatedGroup();
-       return R.ok().data("unallocatedGroupVos", unallocatedGroupVos);
-
-   }
+    @GetMapping("/getResult")
+    public R getProjectGroup() {
+        List<ResultVo> resultVoList = groupService.getResultList();
+        return R.ok().data("resultList", resultVoList);
+    }
 }
