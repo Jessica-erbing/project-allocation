@@ -1,12 +1,8 @@
 package com.usydcapstone.allocation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.usydcapstone.allocation.entity.Admin;
-import com.usydcapstone.allocation.entity.Grps;
 import com.usydcapstone.allocation.entity.Project;
 import com.usydcapstone.allocation.mapper.ProjectMapper;
 import com.usydcapstone.allocation.service.ProjectService;
@@ -18,6 +14,7 @@ import java.util.List;
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService {
 
 
+
     @Override
     public boolean saveProject(Project project) {
         boolean projectNew = save(project);
@@ -26,11 +23,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 
     @Override
     public boolean updateProject(Project project) {
-        UpdateWrapper<Project> projectUpdateWrapper = new UpdateWrapper<>();
-        projectUpdateWrapper
-                .isNotNull("id")
-        ;
-        boolean projectUpdate = saveOrUpdate(project, projectUpdateWrapper);
+//        UpdateWrapper<Project> projectUpdateWrapper = new UpdateWrapper<>();
+//        projectUpdateWrapper
+//                .ne("id",null)
+//        ;
+        boolean projectUpdate = updateById(project);
         return projectUpdate;
     }
 
@@ -44,12 +41,6 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public Project getProjectById(String id) {
         Project getProjectById = getById(id);
         return getProjectById;
-    }
-
-    @Override
-    public Project getProject(int id) {
-        Project getProject = getById(id);
-        return getProject;
     }
 
 
@@ -84,6 +75,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         .or().like("type",keyword);
         List<Project> searchResult = baseMapper.selectList(projectSearchWrapper);
         return searchResult;
+    }
+
+    @Override
+    public Project getProject(int id) {
+        Project getProject = getById(id);
+        return getProject;
     }
 
 

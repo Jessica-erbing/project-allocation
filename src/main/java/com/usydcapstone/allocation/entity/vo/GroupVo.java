@@ -7,7 +7,11 @@ import java.util.List;
 
 @Data
 public class GroupVo {
-    private String id;
+    private Long id;
     private String groupNumber;
+    private String preferField;
     private List<Student> studentList;
+    private int pre1;
+    private int pre2;
+    private int pre3;
 }

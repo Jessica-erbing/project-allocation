@@ -1,7 +1,6 @@
 package com.usydcapstone.allocation.entity;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 @Data
 public class User {
@@ -9,4 +8,5 @@ public class User {
     private String name;
     private Integer age;
     private String email;
+
 }

@@ -1,11 +1,8 @@
 package com.usydcapstone.allocation.service.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.usydcapstone.allocation.entity.Grps;
 import com.usydcapstone.allocation.entity.Project;
 import com.usydcapstone.allocation.mapper.ProjectMapper;
 import com.usydcapstone.allocation.service.AllocationService;
@@ -64,7 +61,6 @@ public class AllocationServiceImpl extends ServiceImpl<ProjectMapper, Project> i
         findWrapper.and(wrapper->wrapper.like("fullstatus",fullStatus));
         findWrapper.and(wrapper->wrapper.like("title",keyword)
                 .or().like("id",keyword)
-                .or().like("unit",keyword)
                 .or().like("type",keyword));
 
 

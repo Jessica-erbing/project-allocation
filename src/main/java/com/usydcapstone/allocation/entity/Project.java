@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-import java.awt.*;
-
 @Data
 public class Project {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
@@ -21,3 +19,5 @@ public class Project {
     private String annotation;
     private int fullstatus;
 }
+
+
