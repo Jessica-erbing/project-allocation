@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.usydcapstone.allocation.entity.Grps;
-import com.usydcapstone.allocation.entity.vo.GroupNumberVo;
-import com.usydcapstone.allocation.entity.vo.GroupVo;
-import com.usydcapstone.allocation.entity.vo.ResultVo;
-import com.usydcapstone.allocation.entity.vo.UnallocatedGroupVo;
+import com.usydcapstone.allocation.entity.vo.*;
 import com.usydcapstone.allocation.mapper.GroupMapper;
 import com.usydcapstone.allocation.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +110,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Grps> implements 
     public  List<UnallocatedGroupVo> getUnallocatedGroup(){
         return groupMapper.getUnallocatedGroup();
     }
+    @Override
+    public List<GroupMemberVo> getGroupMember(Map params){return groupMapper.getGroupMember(params);}
 
 }

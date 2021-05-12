@@ -31,4 +31,6 @@ public class GrpsController {
         List<GroupVo> groupList = groupService.getGroupList();
         return R.ok().data("list",groupList);
     }
+
+
 }

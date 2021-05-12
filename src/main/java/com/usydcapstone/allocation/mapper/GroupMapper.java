@@ -3,10 +3,7 @@ package com.usydcapstone.allocation.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.usydcapstone.allocation.entity.Grps;
-import com.usydcapstone.allocation.entity.vo.GroupNumberVo;
-import com.usydcapstone.allocation.entity.vo.GroupVo;
-import com.usydcapstone.allocation.entity.vo.ResultVo;
-import com.usydcapstone.allocation.entity.vo.UnallocatedGroupVo;
+import com.usydcapstone.allocation.entity.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,6 +19,7 @@ public interface GroupMapper extends BaseMapper<Grps> {
     public List<GroupVo> getUnassignedGroup();
     public List<UnallocatedGroupVo> getUnallocatedGroup();
     public List<GroupNumberVo> getGroupNumber(Map params);
+    public List<GroupMemberVo> getGroupMember(Map params);
 
 
 

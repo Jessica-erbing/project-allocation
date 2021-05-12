@@ -15,7 +15,6 @@ public interface ProjectService extends IService<Project> {
     List<Project> getAllProject();
     IPage<Project> getByPage(IPage<Project> page);
     List<Project> keywordSearch(String keyword);
-
     Project getProject(int id);
 }
 
