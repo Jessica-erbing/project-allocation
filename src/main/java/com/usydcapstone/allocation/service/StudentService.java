@@ -21,5 +21,6 @@ public interface StudentService extends IService<Student> {
     Student resetPassword(String id);
     boolean batchInsertOrUpdate(List<Student> userList);
     List<Student> userExcelList2StudentList(List<StudentExcel> userExcelList) throws ParseException;
+    List<Student> getGroupMembers(String groupId);
 
 }
