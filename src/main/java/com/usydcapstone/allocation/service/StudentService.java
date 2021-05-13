@@ -19,8 +19,9 @@ public interface StudentService extends IService<Student> {
     IPage<Student> getStudentByPage(IPage<Student> page);
     List<Student> keywordSearch(String keyword);
     Student resetPassword(String id);
+    Student exitGroup(String id);
     boolean batchInsertOrUpdate(List<Student> userList);
     List<Student> userExcelList2StudentList(List<StudentExcel> userExcelList) throws ParseException;
-    List<Student> getGroupMembers(String groupId);
+    List<Student> getGroupMembers(Long groupId);
 
 }

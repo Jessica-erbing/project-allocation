@@ -98,6 +98,14 @@ public class StudentController {
         return R.ok().data("student", student);
     }
 
+    @PostMapping("/exitGroup")
+    public R exitGroup(@RequestParam String id) {
+        Student student = studentService.exitGroup(id);
+        studentService.updateStudent(student);
+        return R.ok().data("student", student);
+    }
+
+
     @GetMapping("/batch/template")
     public void downloadTemplate(HttpServletResponse response) {
         String fileName = "Bulk_import_student_templates";
@@ -129,9 +137,17 @@ public class StudentController {
     }
 
     @GetMapping("/getGroupMembers")
-    public R getGroupMembers(@RequestParam String groupid) {
-        List<Student> GroupMembers = studentService.getGroupMembers(groupid);
-        return R.ok().data("Student", GroupMembers);
+    public R getGroupMembers(@RequestParam Long groupid) {
+
+        if(groupid != 0){
+            List<Student> GroupMembers = studentService.getGroupMembers(groupid);
+            return R.ok().data("Student", GroupMembers);
+        }else{
+            return R.error().code(300);
+
+        }
+
+
     }
 
 }
