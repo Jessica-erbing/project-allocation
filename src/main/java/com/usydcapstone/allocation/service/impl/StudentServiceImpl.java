@@ -109,6 +109,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return userList;
         }
 
+    @Override
+    public List<Student> getGroupMembers(String groupid) {
+        QueryWrapper<Student> GroupMembersWrapper = new QueryWrapper<>();
+        GroupMembersWrapper
+                .eq("group_id",groupid);
+        List<Student> GroupMember = baseMapper.selectList(GroupMembersWrapper);
+        return GroupMember;
+    }
 
 
 

@@ -128,4 +128,10 @@ public class StudentController {
         return R.ok().data("student", studentbatch);
     }
 
+    @GetMapping("/getGroupMembers")
+    public R getGroupMembers(@RequestParam String groupid) {
+        List<Student> GroupMembers = studentService.getGroupMembers(groupid);
+        return R.ok().data("Student", GroupMembers);
+    }
+
 }
