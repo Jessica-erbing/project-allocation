@@ -81,6 +81,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
+    public Student exitGroup(String id) {
+        Student student1 = baseMapper.selectById(id);
+        student1.setGroupId(0L);
+
+        return student1;
+
+    }
+
+    @Override
     public boolean batchInsertOrUpdate(List<Student> userList) {
         boolean batchUserList = saveOrUpdateBatch(userList);
         return batchUserList;
@@ -110,7 +119,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }
 
     @Override
-    public List<Student> getGroupMembers(String groupid) {
+    public List<Student> getGroupMembers(Long groupid) {
         QueryWrapper<Student> GroupMembersWrapper = new QueryWrapper<>();
         GroupMembersWrapper
                 .eq("group_id",groupid);
