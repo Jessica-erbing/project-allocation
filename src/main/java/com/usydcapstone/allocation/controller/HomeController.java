@@ -25,9 +25,9 @@ public class HomeController {
 
    }
     @GetMapping("/getGroupMember")
-    public R getGroupMember(/*@RequestParam String groupId*/){
+    public R getGroupMember(@RequestParam String groupId){
         Map params = new HashMap<>();
-        params.put("id",4);
+        params.put("id",groupId);
         List<GroupMemberVo> groupMemberVos = groupService.getGroupMember(params);
         return R.ok().data("groupMember",groupMemberVos);
     }
